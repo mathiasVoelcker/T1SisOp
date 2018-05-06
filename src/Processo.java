@@ -17,20 +17,17 @@ public class Processo {
     public void executar(int fatiaTempo) {
         int tempoExecutando = 0;
         while(tempoExecutando < fatiaTempo){
-            if(this.etapaProcesso == tempoExcecucao) {
+            if(this.etapaProcesso == this.tempoExcecucao) {
                 finalizado = true;
                 break;
             }
-            try {
-                Thread.currentThread().sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Contador.passarUmSegundo();
             this.etapaProcesso++;
             tempoExecutando++;
         }
-        System.out.println(etapaProcesso);
-        System.out.println(tempoExcecucao);
+        System.out.println(Contador.tempo);
+        System.out.println(this.etapaProcesso);
+        System.out.println(this.tempoExcecucao);
         System.out.println("-----------------");
     }
 

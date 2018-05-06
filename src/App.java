@@ -14,17 +14,26 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Contador contador = new Contador(0);
         ArrayList<Processo> processos = configIniciais.getProcessos();
         int fatiaTempo = configIniciais.getFatiaTempo();
         ordenarProcessosPorPrioridade(processos);
-        boolean executou = true;
-        while(executou){
-            executou = false;
+        boolean finalizado = false;
+        boolean nadaExecutou;
+        while(!finalizado) {
+            finalizado = true;
+            nadaExecutou = true;
             for (Processo processo: processos) {
                 if(!processo.isFinalizado()){
-                    executou = true;
-                    processo.executar(fatiaTempo);
+                    finalizado = false;
+                    if(processo.getTempoChegada() <= Contador.tempo){
+                        processo.executar(fatiaTempo);
+                        nadaExecutou = false;
+                    }
                 }
+            }
+            if(nadaExecutou){
+                Contador.passarUmSegundo();
             }
         }
     }
