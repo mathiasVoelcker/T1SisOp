@@ -32,7 +32,7 @@ public class App {
                         nadaExecutou = false;
                         for(int i = 0; i < trocaContexto; i++){
                             Contador.passarUmSegundo();
-                            System.out.println("Trocando Contexto " + Contador.tempo);
+                            System.out.print("T");
                         }
                     }
                 }
