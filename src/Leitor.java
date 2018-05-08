@@ -26,9 +26,14 @@ public class Leitor {
             Processo processo = new Processo();
             currentLine = bufferReader.readLine();
             scanner = new Scanner(currentLine);
+            processo.setId(i + 1);
             processo.setTempoChegada(scanner.nextInt());
             processo.setTempoExcecucao(scanner.nextInt());
             processo.setPrioridade(scanner.nextInt());
+            if(scanner.hasNextInt())
+                processo.setOperacaoEntrada(scanner.nextInt());
+            if(scanner.hasNextInt())
+                processo.setOperacaoSaida(scanner.nextInt());
             configIniciais.addProcesso(processo);
         }
         reader.close();

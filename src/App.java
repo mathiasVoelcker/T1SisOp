@@ -20,6 +20,7 @@ public class App {
         ordenarProcessosPorPrioridade(processos);
         boolean finalizado = false;
         boolean nadaExecutou;
+        int trocaContexto = 1;
         while(!finalizado) {
             finalizado = true;
             nadaExecutou = true;
@@ -29,8 +30,13 @@ public class App {
                     if(processo.getTempoChegada() <= Contador.tempo){
                         processo.executar(fatiaTempo);
                         nadaExecutou = false;
+                        for(int i = 0; i < trocaContexto; i++){
+                            Contador.passarUmSegundo();
+                            System.out.println("Trocando Contexto " + Contador.tempo);
+                        }
                     }
                 }
+
             }
             if(nadaExecutou){
                 Contador.passarUmSegundo();
@@ -43,9 +49,9 @@ public class App {
         for(int n = processos.size(); n >= 2; n--) {
             for(int i = 0; i < (n - 1); i++){
                 if(processos.get(i).getPrioridade() > processos.get(i + 1).getPrioridade()){
-                    int aux = processos.get(i).getPrioridade();
-                    processos.get(i).setPrioridade(processos.get(i + 1).getPrioridade());
-                    processos.get(i + 1).setPrioridade(aux);
+                    Processo aux = processos.get(i);
+                    processos.set(i, processos.get(i + 1));
+                    processos.set(i + 1, aux);
                 }
             }
         }
